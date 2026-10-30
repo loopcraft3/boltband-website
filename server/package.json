@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "node --watch -r dotenv/config index.js",
     "start": "node index.js",
-    "seed": "node -r dotenv/config seed.js"
+    "seed": "node -r dotenv/config seed.js",
+    "images": "node -r dotenv/config addImages.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

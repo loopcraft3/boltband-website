@@ -29,6 +29,7 @@ const Product = models.Product || model("Product", new Schema({
   price: { type: Number, required: true, min: 0 },
   stock: { type: Number, default: 0, min: 0 },
   tag: { type: String, trim: true, default: "" },
+  image: { type: String, default: "" },   // <- add this
 }, opts));
 
 const Quote = models.Quote || model("Quote", new Schema({

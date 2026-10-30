@@ -64,8 +64,14 @@ export default function Home() {
       </header>
 
       <section className="hero">
+        <span className="eyebrow">Industrial hardware supply</span>
         <h1>Stock the job site before the job starts.</h1>
         <p>Seven product lines, bulk pack prices, one quote request. We call you back the same day.</p>
+        <ul className="trust">
+          <li><b>{products.length || "17"}+</b>products</li>
+          <li><b>7</b>categories</li>
+          <li><b>Same-day</b>callback</li>
+        </ul>
       </section>
 
       <main className="shop">
@@ -85,13 +91,16 @@ export default function Home() {
               {!q && active && <p>{active.blurb}</p>}
             </div>
           )}
-          {loading && <p className="msg">Loading products…</p>}
+          {loading && (
+            <ul className="grid">{[...Array(6)].map((_, i) => <li key={i} className="card sk" />)}</ul>
+          )}
           {!loading && !error && shown.length === 0 && (
             <p className="msg">No products match “{q}”. Try a brand name or clear the search.</p>
           )}
           <ul className="grid">
             {shown.map((p) => (
               <li key={p.id} className={"card" + (p.stock === 0 ? " out" : "")}>
+              <ProductImage p={p} no={cats.find((c) => c.id === p.category)?.no} />
                 <span className="tag">{p.tag}</span>
                 <h3>{p.name}</h3>
                 <p className="meta">{p.brand} · {p.pack}</p>
@@ -115,7 +124,13 @@ export default function Home() {
           </ul>
         </section>
       </main>
-
+            <footer className="foot">
+              <div>
+                <span><b>Bolt&amp;Bond</b><br />Industrial hardware, delivered to the job site.</span>
+                <span>Call: +91 98888 74444<br /><a href="mailto:sales@boltbond.example">sales@boltbond.example</a></span>
+                <span><a href="/admin">Admin</a></span>
+              </div>
+            </footer>
       {open && <Drawer lines={lines} total={total} setQty={setQty} onClose={() => setOpen(false)} clear={() => setCart({})} />}
     </>
   );
@@ -194,4 +209,22 @@ function Drawer({ lines, total, setQty, onClose, clear }) {
       </aside>
     </div>
   );
+}
+
+function ProductImage({ p, no }) {
+  const [bad, setBad] = useState(false);
+  if (p.image && !bad)
+    return (
+      <div className="pimg">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={p.image} alt={p.name} loading="lazy" onError={() => setBad(true)} />
+      </div>
+    );
+  return (
+    <div className="pimg ph" aria-hidden="true">
+      <span>{no}</span>
+      <b>{p.tag}</b>
+    </div>
+  );
+
 }
