@@ -5,9 +5,6 @@ An industrial hardware supply store where customers browse products by category,
 **Live demo:** https://boltband-website-msar.vercel.app
 **Admin panel:** https://boltband-website-msar.vercel.app/admin (login required)
 
-![Home Page](image-1.png)
-![Products](image.png)
-
 ## Features
 
 **Storefront**
